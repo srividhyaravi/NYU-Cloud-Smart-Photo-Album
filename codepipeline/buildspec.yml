@@ -16,7 +16,7 @@ phases:
       - cd Lambdas
       - mv search-photos.py lambda_function.py
       - zip -g deployment_package_1.zip lambda_function.py
-      - mv lambda_function.py find-photo.py
+      - mv lambda_function.py search-photos.py
       - mv index-photos.py lambda_function.py
       - zip -g deployment_package_2.zip lambda_function.py
       - mv lambda_function.py index-photos.py
