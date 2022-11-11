@@ -3,14 +3,11 @@ import urllib.parse
 import boto3
 import datetime
 import requests
-#from botocore.vendored import requests
-
 
 print('Loading function')
 
 s3 = boto3.client("s3", "us-east-1")
 open_search_url = "https://search-photos-tsplel4joanuc5gkqwjv3htvyu.us-east-1.es.amazonaws.com/indices/_doc"
-# open_search_url = "https://search-photos1-df7kaxqciee65thyvk6f6wh64i.us-east-1.es.amazonaws.com/indices/_doc"
 rekognition = boto3.client("rekognition", "us-east-1")
 
 def lambda_handler(event, context):
