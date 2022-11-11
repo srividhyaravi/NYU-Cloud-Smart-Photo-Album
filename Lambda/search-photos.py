@@ -1,7 +1,6 @@
 import json
 import boto3
 import requests
-#from botocore.vendored import requests
 
 AMAZON_LEX_BOT = "photobot_test"
 LEX_BOT_ALIAS = "test_one"
@@ -10,10 +9,7 @@ USER_ID = "user"
 
 TABLENAME = 'photos'
 ELASTIC_SEARCH_URL = "https://search-photos-tsplel4joanuc5gkqwjv3htvyu.us-east-1.es.amazonaws.com/_search?q="
-#ELASTIC_SEARCH_URL = "https://search-photos-tsplel4joanuc5gkqwjv3htvyu.us-east-1.es.amazonaws.com/_search?q="
-# ELASTIC_SEARCH_URL = "https://search-photos1-df7kaxqciee65thyvk6f6wh64i.us-east-1.es.amazonaws.com/_search?q="
 
-# S3_URL = "https://cloud9223-photo-album.s3.amazonaws.com/"
 S3_URL = "https://photo-store-b2.s3.amazonaws.com/"
 
 def post_on_lex(query, user_id=USER_ID):
@@ -47,7 +43,6 @@ def get_photos_ids(URL, labels):
     """
     
     URL = URL + str(labels)
-    #response = requests.get(URL, auth=awsauth).content
     response = requests.get(URL, auth=("roshnisen","#Cloudtest123")).content
     print("Response: ",response)
     data = json.loads(response)
@@ -73,49 +68,13 @@ def respond(err, res=None):
         },
     }
 
-# def convert_speechtotext():
 
-#     transcribe = boto3.client('transcribe')
-
-#     job_name = datetime.datetime.now().strftime("%m-%d-%y-%H-%M%S")
-#     job_uri = "https://awstranscribe-recordings.s3.amazonaws.com/Recording.wav"
-#     storage_uri = "awstranscribe-output"
-
-#     s3 = boto3.client('s3')
-#     transcribe.start_transcription_job(
-#         TranscriptionJobName=job_name,
-#         Media={'MediaFileUri': job_uri},
-#         MediaFormat='wav',
-#         LanguageCode='en-US',
-#         OutputBucketName=storage_uri
-#     )
-
-#     while True:
-#         status = transcribe.get_transcription_job(
-#             TranscriptionJobName=job_name)
-#         if status['TranscriptionJob']['TranscriptionJobStatus'] in ['COMPLETED', 'FAILED']:
-#             break
-#         time.sleep(5)
-
-#     print("Transcript URL: ", status)
-
-#     job_name = str(job_name) + '.json'
-#     print(job_name)
-#     obj = s3.get_object(Bucket="awstranscribe-output", Key=job_name)
-#     print("Object : ", obj)
-#     body = json.loads(obj['Body'].read().decode('utf-8'))
-#     print("Body :", body)
-
-#     return body["results"]["transcripts"][0]["transcript"]
 
 
 
 def lambda_handler(event, context):
     
     query = event['queryStringParameters']['q']
-    #query = "Show me dog"
-    # if(query == "searchAudio"):
-    #     query = convert_speechtotext()
     
     labels = post_on_lex(query)
     id_list, labels_list = get_photos_ids(ELASTIC_SEARCH_URL, labels)
