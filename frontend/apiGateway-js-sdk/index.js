@@ -127,47 +127,6 @@ function uploadPhoto() {
     document.getElementById("uploadText").style.fontWeight = "bold";
     });
 
-    
-//     var encoded_image = getBase64(file).then((data) => {
-//         console.log(data);
-//         var apigClient = apigClientFactory.newClient();
-
-//         var file_type = file.tyFpe + ';base64';
-//         //var file_type = file.type;
-
-//         console.log(file.type);
-
-//   });
-
-//         var body = data;
-//         var params = {
-//         key: file.name,
-//             bucket: 'photo-store-b2',
-//             'Content-Type': file.type,
-//             'x-amz-meta-customLabels': custom_labels.value,
-//             Accept: 'image/*',
-//         };
-//         apigClient
-//         .uploadBucketKeyPut(params, file, additionalParams)
-//         .then(function (res) {
-//             if (res.status == 200) {
-//             document.getElementById('uploadText').innerHTML =
-//                 'Image Uploaded  !!!';
-//             document.getElementById('uploadText').style.display = 'block';
-//             }
-//       });
-//   });
-}
-
-
-
-
-
-
-
-
-
-
 
 
 
