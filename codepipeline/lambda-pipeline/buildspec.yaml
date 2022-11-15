@@ -1,1 +1,35 @@
+version: 0.2
 
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo "Installing dependencies for search-photo..."
+      - cd src
+      - pip install -r requirements.txt -t lib
+      - echo "Installing dependencies for index-photo..."
+
+  build:
+    commands:
+      - echo "Zipping deployment package for search-photo..."
+      - cd lib
+      - echo "currently in" + `pwd`
+      - zip -r9 ../deployment_package_search_photo.zip .
+      - cd ../search-photos
+      - zip -g ../deployment_package_search_photo.zip lambda_function.py
+      - echo "Zipping deployment package for index-photo..."
+      - cd ../lib
+      - echo "currently in" + `pwd`
+      - zip -r9 ../deployment_package_index_photo.zip .
+      - cd ../index-photos
+      - zip -g ../deployment_package_index_photo.zip lambda_function.py
+      - cd ..
+  post_build:
+    commands:
+      - echo "Updating lambda Function search-photo..."
+      - echo "currently in" + `pwd`
+      - aws lambda update-function-code --function-name	search-photos --zip-file fileb://deployment_package_search_photo.zip
+      - echo "Successfully uploaded deployment_package_search_photo.zip"
+      - aws lambda update-function-code --function-name	index-photos --zip-file fileb://deployment_package_index_photo.zip
+      - echo "Successfully uploaded deployment_package_index_photo.zip"
