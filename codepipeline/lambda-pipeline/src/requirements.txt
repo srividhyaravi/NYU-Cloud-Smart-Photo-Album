@@ -1,1 +1,6 @@
-
+json
+urllib.parse
+boto3
+datetime
+requests
+elasticsearch==7.13.4
